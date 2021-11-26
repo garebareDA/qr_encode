@@ -1,3 +1,5 @@
+pub mod qr_encode_modes;
+
 #[cfg(test)]
 mod tests {
     #[test]
