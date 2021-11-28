@@ -2,16 +2,15 @@ use kanji;
 use regex::Regex;
 
 enum EncodeModeType {
-    Numeric,
-    Alphanumeric,
-    Byte,
-    Kanji,
+    Numeric = 0001,
+    Alphanumeric = 0010,
+    Byte = 0100,
+    Kanji = 1000,
 }
 
 struct EncodeMode {
     char: char,
     mode: Vec<EncodeModeType>,
-    bits: u8,
 }
 
 impl EncodeMode {
@@ -19,12 +18,7 @@ impl EncodeMode {
         EncodeMode {
             char: char,
             mode: mode,
-            bits: 0,
         }
-    }
-
-    pub fn set_bits(&mut self, bits: u8) {
-        self.bits = bits;
     }
 
     pub fn get_encoding_mode(&self) -> &Vec<EncodeModeType> {
@@ -64,7 +58,7 @@ fn qr_encode_mode_select(str: &str) -> Vec<EncodeMode> {
 
 fn qr_bits_encode(mut list: &mut Vec<EncodeMode>) {
     for l in list {
-        for mode in l.get_encoding_mode() {
+        for mode in l.get_encoding_mode().iter() {
             match mode {
                 EncodeModeType::Numeric => {
                     println!("{}", l.char);
@@ -81,4 +75,8 @@ fn qr_bits_encode(mut list: &mut Vec<EncodeMode>) {
             }
         }
     }
+}
+
+fn qr_bits_encode_numeric(str: &str) {
+    let mut list = qr_encode_mode_select(str);
 }
