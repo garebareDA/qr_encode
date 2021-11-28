@@ -1,4 +1,4 @@
-pub mod qr_encode_modes;
+pub mod qr_bits_encode;
 
 #[cfg(test)]
 mod tests {
