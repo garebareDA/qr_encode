@@ -1,4 +1,5 @@
 pub mod qr_bits_encode;
+pub mod error;
 
 #[cfg(test)]
 mod tests {

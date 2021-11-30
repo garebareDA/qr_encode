@@ -1,5 +1,6 @@
 use kanji;
 use regex::Regex;
+use crate::error::Error;
 
 enum EncodeModeType {
     Numeric = 0001,
@@ -36,9 +37,10 @@ impl EncodeMode {
     }
 }
 
-pub(crate) fn qr_encode_mode(str: &str) {
+pub(crate) fn qr_encode_mode(str: &str) -> Result<(), Error> {
     let list = qr_encode_mode_select(str);
     qr_bits_encode(&list);
+    return Ok(());
 }
 
 fn qr_encode_mode_select(str: &str) -> Vec<EncodeMode> {
@@ -62,18 +64,10 @@ fn qr_encode_mode_select(str: &str) -> Vec<EncodeMode> {
     return encode_mode_list;
 }
 
-fn qr_bits_encode(list: &Vec<EncodeMode>) {
-    for l in list.iter() {
-        let mode = l.mode.get(0).unwrap();
-        match mode {
-            EncodeModeType::Numeric => {
-                
-            }
-            EncodeModeType::Alphanumeric => {}
-            EncodeModeType::Byte => {}
-            EncodeModeType::Kanji => {}
-        }
-    }
+fn qr_bits_encode(list: &Vec<EncodeMode>) -> Result<(), Error> {
+    
+
+    return Ok(());
 }
 
 fn qr_bits_encode_numeric(str: &str) {
