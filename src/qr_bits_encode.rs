@@ -13,6 +13,12 @@ struct EncodeMode {
     mode: Vec<EncodeModeType>,
 }
 
+struct Encoded {
+    string: String,
+    mode: EncodeModeType,
+    bits: Vec<u8>,
+}
+
 impl EncodeMode {
     pub fn new(char: char, mode: Vec<EncodeModeType>) -> EncodeMode {
         EncodeMode {
@@ -31,8 +37,8 @@ impl EncodeMode {
 }
 
 pub(crate) fn qr_encode_mode(str: &str) {
-    let mut list = qr_encode_mode_select(str);
-    qr_bits_encode(&mut list);
+    let list = qr_encode_mode_select(str);
+    qr_bits_encode(&list);
 }
 
 fn qr_encode_mode_select(str: &str) -> Vec<EncodeMode> {
@@ -56,23 +62,16 @@ fn qr_encode_mode_select(str: &str) -> Vec<EncodeMode> {
     return encode_mode_list;
 }
 
-fn qr_bits_encode(mut list: &mut Vec<EncodeMode>) {
-    for l in list {
-        for mode in l.get_encoding_mode().iter() {
-            match mode {
-                EncodeModeType::Numeric => {
-                    println!("{}", l.char);
-                }
-                EncodeModeType::Alphanumeric => {
-                    println!("{}", l.char);
-                }
-                EncodeModeType::Byte => {
-                    println!("{}", l.char);
-                }
-                EncodeModeType::Kanji => {
-                    println!("{}", l.char);
-                }
+fn qr_bits_encode(list: &Vec<EncodeMode>) {
+    for l in list.iter() {
+        let mode = l.mode.get(0).unwrap();
+        match mode {
+            EncodeModeType::Numeric => {
+                
             }
+            EncodeModeType::Alphanumeric => {}
+            EncodeModeType::Byte => {}
+            EncodeModeType::Kanji => {}
         }
     }
 }
