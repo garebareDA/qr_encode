@@ -20,6 +20,7 @@ struct EncodeMode {
 
 pub struct Encoded {
     mode: EncodeModeType,
+    len: i32,
     bits: Vec<i32>,
 }
 
@@ -45,9 +46,10 @@ impl EncodeMode {
 }
 
 impl Encoded {
-    pub fn new(mode: EncodeModeType, bits: Vec<i32>) -> Encoded {
+    pub fn new(mode: EncodeModeType, len:i32, bits: Vec<i32>) -> Encoded {
         Encoded {
             mode: mode,
+            len: len,
             bits: bits,
         }
     }
@@ -115,6 +117,6 @@ fn qr_bits_encode_numeric(list: Vec<EncodeMode>) -> Result<Encoded, Error> {
         let c2 = *list.last().unwrap().get_char() as i32 - 48;
         bits.push(c1 * 10 + c2);
     }
-    let encoded = Encoded::new(EncodeModeType::Numeric, bits);
+    let encoded = Encoded::new(EncodeModeType::Numeric, list.len() as i32, bits);
     return Ok(encoded);
 }
